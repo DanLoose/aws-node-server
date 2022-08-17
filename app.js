@@ -1,20 +1,31 @@
+// initial config 
+require('dotenv').config()
 const express = require("express")
-var bodyParser = require("body-parser")
-const router = require("./routes/router")
-
+const bodyParser = require("body-parser")
+const { default: mongoose } = require("mongoose")
 const PORT = 3333
-
 const app = express()
 
-// parse application/x-www-form-urlencoded
+// import routers
+const taskRouter = require('./routes/taskRouter')
+
+// middlewares
 app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
 app.use(bodyParser.json())
-
-app.use("/development", router)
+app.use('/task', taskRouter)
 app.use(express.static("public"))
 
-app.listen(PORT, () => {
-    console.log("Running on port " + PORT);
-})
+// connect to mongoDB and open a PORT
+const USER_NAME = process.env.USER_NAME
+const PASSWORD = process.env.PASSWORD
+
+mongoose.connect(`mongodb+srv://${USER_NAME}:${PASSWORD}@apicluster.o67nljd.mongodb.net/?retryWrites=true&w=majority`)
+    .then(() => {
+        console.log('MongoDB connected!')
+
+        app.listen(PORT, () => {
+            console.log("Running on port " + PORT);
+        })
+
+    })
+    .catch((err) => console.log(err))
