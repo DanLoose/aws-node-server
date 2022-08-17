@@ -21,7 +21,7 @@ const PASSWORD = process.env.PASSWORD
 
 mongoose.connect(`mongodb+srv://${USER_NAME}:${PASSWORD}@apicluster.o67nljd.mongodb.net/?retryWrites=true&w=majority`)
     .then(() => {
-        console.log('MongoDB connected!')
+        console.log('MongoDB connected! Oi Shurpi')
 
         app.listen(PORT, () => {
             console.log("Running on port " + PORT);
