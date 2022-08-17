@@ -22,7 +22,7 @@ const USER_NAME = process.env.USER_NAME
 const PASSWORD = process.env.PASSWORD
 
 app.get('/', (req, res) => {
-    res.render('index')
+    res.send('index')
 })
 
 mongoose.connect(`mongodb+srv://${USER_NAME}:${PASSWORD}@apicluster.o67nljd.mongodb.net/?retryWrites=true&w=majority`)
